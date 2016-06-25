@@ -72,6 +72,8 @@ void command::commandParser(string cmd,int cl,int max)
 		else if(*pitr == 61) //*pitr = =
 		{
 			//check possiblities of =
+			valid = TRUE;
+			cmdsymbol='z';
 			cout<<"Current Line: "<<cl<<endl;	
 		}
 		else
@@ -129,7 +131,7 @@ void command::theta(string pop,int cl,int max)
 			add1=*pitr;
 			add2='0';
 			seprator='\0';
-			cmdsymbol='\0';
+			cmdsymbol='m';
 			a=add1 - '0';
 			if(1<=a && a<=max)
 				valid=TRUE;

@@ -22,5 +22,16 @@ class command{
 	void print();
 };
 
-
+class LED{
+	std::list<string> buffer;
+	std::string line; //to read from file to buffer
+	std::list<string>::iterator bitr;
+	command cmd;
+	bool mode;
+	int current_line,last_line;
+	public:
+	LED();
+	LED(fstream &,char);
+	void run();
+};
 #endif
