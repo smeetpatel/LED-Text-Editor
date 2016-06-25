@@ -53,7 +53,7 @@ void LED::run()
 				if(cmd.cmdsymbol=='r')
 					remove();
 				else if(cmd.cmdsymbol=='p')
-					print();
+					printbuff();
 				else if(cmd.cmdsymbol=='n')
 					printLineTab();
 				else if(cmd.cmdsymbol=='c')
@@ -136,3 +136,37 @@ void LED::remove()
 		current_line=0;
 	return;
 }
+
+void LED::printbuff()
+{
+	int i;
+	bitr=buffer.begin();
+	for(i=0;i<((cmd.add1-'0')-1);i++)
+		++bitr;
+	for(i=(cmd.add1-'0');i<((cmd.add2-'0')+1);i++)
+	{
+		cout<<*bitr<<endl;
+		++bitr;
+	}
+	cl=(y-'0');
+	return;
+}
+
+void LED::printLineTab()
+{
+	int i,a;
+	bitr=buffer.begin();
+	a=(cmd.add1 - '0');
+	for(i=0;i<((cmd.add1-'0')-1);i++)
+		++bitr;
+	for(i=(cmd.add1-'0');i<((cmd.add2-'0')+1);i++)
+	{
+		cout<<a<<"\t"<<*bitr<<endl;
+		a++;
+		++bitr;
+	}
+	cl=(y-'0');
+	return;
+}
+
+

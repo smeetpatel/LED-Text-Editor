@@ -33,5 +33,8 @@ class LED{
 	LED();
 	LED(fstream &,char);
 	void run();
+	void remove();
+	void printbuff();
+	void printLineTab();
 };
 #endif
