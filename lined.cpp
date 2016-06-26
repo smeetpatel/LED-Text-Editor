@@ -15,7 +15,7 @@ LED::LED()
 	current_line=last_line=0;
 }
 
-LED::LED(std::fstream & fmanip,char *str)
+LED::LED(std::fstream & fmanip,const char *str)
 {
 	int ct=0;
 	while(getline(fmanip,line))
@@ -24,11 +24,11 @@ LED::LED(std::fstream & fmanip,char *str)
 		ct++;
 	}
 	last_line=current_line=ct;
-	cout<<"\""<<str<<"\""<<" ["<<ct<<" lines"<<endl;
+	cout<<"\""<<str<<"\""<<" ["<<ct<<" lines"<<"]"<<endl;
 }
 
 //following function runs continously until user decides to quit!!
-void LED::run(bool fname,char *str)
+void LED::run(bool fname,const char *str)
 {
 	string line;
 	int a=0;
@@ -74,10 +74,11 @@ void LED::run(bool fname,char *str)
 					cout<<"Unrecognized command"<<endl;
 					break;
 				}
+				break;
 			}
 			case 0:
 			{
-				if(cmd.cmdsymbol==a)
+				if(cmd.cmdsymbol=='a')
 				{
 					bitr=buffer.begin();
 					if(current_line!=0) //would allow appending to empty buffer
@@ -102,10 +103,12 @@ void LED::run(bool fname,char *str)
 				last_line=buffer.size();
 				cout<<":";
 				mode=1;
+				break;
 				//above code would set current line and last line
 			}
 		}
-		getline(cin,line);
+		if(mode!=0)
+			getline(cin,line);
 	}
 	//checking left
 	if(line=="q")
@@ -229,6 +232,8 @@ void LED::moveUp()
 	if(current_line<1)
 	{
 		cout<<"Not possible"<<endl;
+		current_line=1;
+		cout<<":";
 		return;
 	}
 	cout<<":";
@@ -238,16 +243,18 @@ void LED::moveUp()
 void LED::moveDown()
 {
 	current_line=current_line+(cmd.add1-'0');
-	if(current_line<last_line)
+	if(current_line>last_line)
 	{
 		cout<<"Not possible"<<endl;
+		current_line=last_line;
+		cout<<":";
 		return;
 	}
 	cout<<":";
 	return;
 }
 
-void LED::writes(bool fname,char *str)
+void LED::writes(bool fname,const char *str)
 {
 	string file_name;
 	std::ofstream filemanip;

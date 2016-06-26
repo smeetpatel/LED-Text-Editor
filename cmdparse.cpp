@@ -38,6 +38,15 @@ void command::commandParser(string cmd,int cl,int max)
 			return;
 		}
 	}
+	if(parse.size()==0) //if command is enter...do same as 1d
+	{
+		add1=1+'0';
+		add2=add1;
+		seprator=',';
+		cmdsymbol='d';
+		valid=TRUE;
+		return;
+	}
 	//list with all required element is formed.
 	if(parse.size()>4) //not known command
 	{
@@ -113,7 +122,8 @@ void command::commandParser(string cmd,int cl,int max)
 			return;
 		}
 	}
-	cout<<"Done"<<endl;
+	//cout<<"Done"<<endl;
+	emptylist();
 }
 
 void command::theta(string pop,int cl,int max)
@@ -172,9 +182,9 @@ void command::theta(string pop,int cl,int max)
 		case 3:
 		{
 			add1=*pitr;
-			cout<<"ADD 1:"<<add1<<endl;
+			/*cout<<"ADD 1:"<<add1<<endl;
 			cout<<"CL:"<<cl<<endl;
-			cout<<"ML:"<<max<<endl;
+			cout<<"ML:"<<max<<endl;*/
 			++pitr;
 			if(*pitr == 44)
 			{
@@ -182,9 +192,9 @@ void command::theta(string pop,int cl,int max)
 				++pitr;
 				if(isalpha(*pitr))
 				{
-					cout<<"CL:"<<cl<<endl;
+					//cout<<"CL:"<<cl<<endl;
 					add2 =cl + '0';
-					cout<<"ADD 2:"<<add2<<endl;
+					//cout<<"ADD 2:"<<add2<<endl;
 					cmdsymbol=*pitr;
 					a=add1-'0';
 					b=add2-'0';
@@ -200,7 +210,7 @@ void command::theta(string pop,int cl,int max)
 				{
 					if(isdigit(*pitr))
 						add2 = *pitr;
-					else if(*pitr==44)
+					else if(*pitr==46)
 						add2=cl+'0';
 					else if(*pitr==36)
 						add2=max+'0';
@@ -245,7 +255,7 @@ void command::theta(string pop,int cl,int max)
 				{
 					if(isdigit(*pitr))
 						add2 = *pitr;
-					else if(*pitr==44)
+					else if(*pitr==46)
 						add2=cl+'0';
 					else if(*pitr==36)
 						add2=max+'0';
@@ -368,7 +378,7 @@ void command::beta(string pop,int cl,int max)
 				{
 					if(isdigit(*pitr))
 						add2 = *pitr;
-					else if(*pitr==44)
+					else if(*pitr==46)
 						add2=cl+'0';
 					else if(*pitr==36)
 						add2=max+'0';
@@ -413,7 +423,7 @@ void command::beta(string pop,int cl,int max)
 				{
 					if(isdigit(*pitr))
 						add2 = *pitr;
-					else if(*pitr==44)
+					else if(*pitr==46)
 						add2=cl+'0';
 					else if(*pitr==36)
 						add2=max+'0';
@@ -535,7 +545,7 @@ void command::alpha(string pop,int cl,int max)
 				{
 					if(isdigit(*pitr))
 						add2 = *pitr;
-					else if(*pitr==44)
+					else if(*pitr==46)
 						add2=cl+'0';
 					else if(*pitr==36)
 						add2=max+'0';
@@ -580,7 +590,7 @@ void command::alpha(string pop,int cl,int max)
 				{
 					if(isdigit(*pitr))
 						add2 = *pitr;
-					else if(*pitr==44)
+					else if(*pitr==46)
 						add2=cl+'0';
 					else if(*pitr==36)
 						add2=max+'0';
@@ -763,4 +773,12 @@ void command::print()
 	//cout<<add1<<seprator<<add2<<cmdsymbol<<endl;
 	cout<<valid<<endl;
 	return;
+}
+
+void command::emptylist()
+{
+	std::list<char>::iterator pitr2;
+	pitr=pitr2=parse.begin();
+	advance(pitr2,parse.size());
+	parse.erase(pitr,pitr2);
 }

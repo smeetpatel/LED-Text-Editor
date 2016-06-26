@@ -20,6 +20,7 @@ class command{
 	void beta(std::string,int,int);
 	void alpha(std::string,int,int);
 	void myu(std::string,int,int);
+	void emptylist();
 	void print();
 };
 
@@ -32,15 +33,15 @@ class LED{
 	int current_line,last_line;
 	public:
 	LED();
-	LED(std::fstream &,char *);
-	void run(bool,char *);
+	LED(std::fstream &,const char *);
+	void run(bool,const char *);
 	void remove();
 	void printbuff();
 	void printLineTab();
 	void change();
 	void moveUp();
 	void moveDown();
-	void writes(bool,char *);
+	void writes(bool,const char *);
 	void move();
 	void pcl();
 };
