@@ -78,7 +78,7 @@ void command::commandParser(string cmd,int cl,int max)
 			//check possiblities of MYU
 			command::myu(cmd,cl,max);
 		}
-		else if(*pitr == 61) //*pitr = =
+		else if(*pitr == 61) //*pitr = '='
 		{
 			//check possiblities of =
 			valid = TRUE;
@@ -122,7 +122,6 @@ void command::commandParser(string cmd,int cl,int max)
 			return;
 		}
 	}
-	//cout<<"Done"<<endl;
 	emptylist();
 }
 
@@ -182,9 +181,6 @@ void command::theta(string pop,int cl,int max)
 		case 3:
 		{
 			add1=*pitr;
-			/*cout<<"ADD 1:"<<add1<<endl;
-			cout<<"CL:"<<cl<<endl;
-			cout<<"ML:"<<max<<endl;*/
 			++pitr;
 			if(*pitr == 44)
 			{
@@ -192,9 +188,7 @@ void command::theta(string pop,int cl,int max)
 				++pitr;
 				if(isalpha(*pitr))
 				{
-					//cout<<"CL:"<<cl<<endl;
 					add2 =cl + '0';
-					//cout<<"ADD 2:"<<add2<<endl;
 					cmdsymbol=*pitr;
 					a=add1-'0';
 					b=add2-'0';
@@ -770,7 +764,6 @@ void command::print()
 	int a=add1-'0';
 	int b=add2-'0';
 	cout<<a<<seprator<<b<<cmdsymbol<<endl;
-	//cout<<add1<<seprator<<add2<<cmdsymbol<<endl;
 	cout<<valid<<endl;
 	return;
 }

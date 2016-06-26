@@ -110,7 +110,6 @@ void LED::run(bool fname,const char *str)
 		if(mode!=0)
 			getline(cin,line);
 	}
-	//checking left
 	if(line=="q")
 	{
 		char ch;

@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
 #include <list>
 #include "cmdparser.h"
 #define TRUE 1
@@ -15,12 +14,12 @@ int main(int argc, char * argv[])
 	fstream filemanip;
 	bool fname;
 	//fname: file name given or not
-	//exists: given file exists or not
 	if(argc!=2)
 	{
 		fname=FALSE;
-		LineEditor cmdline;
+		LED cmdline;
 		cout<<"\"?\" [New File]"<<endl;
+		cmdline.run(fname,NULL);
 	}
 	else
 	{
@@ -28,21 +27,21 @@ int main(int argc, char * argv[])
 		filemanip.open(argv[1],ios::in);
 		if(filemanip.good())
 		{
-			//exists = TRUE;
-			LineEditor cmdline(filemanip,argv[1]);
+			LED cmdline1(filemanip,argv[1]);
+			cout<<"Entering Command Mode."<<endl;
+			cout<<":";
+			cmdline1.run(fname,argv[1]); //run until user quits 
 		}
 		else
 		{
-			//exists = FALSE;
-			LineEditor cmdline;
+			LED cmdline2;
 			cout<<"\""<<argv[1]<<"\""<<" [New File]"<<endl;
+			cout<<"Entering Command Mode."<<endl;
+			cout<<":";
+			cmdline2.run(fname,argv[1]); //run until user quits 
 		}
-	}
-	//till now, object of LineEditor is created. Now we enter command mode!
-	cout<<"Entering Command Mode."<<endl;
-	cout<<":";
-	cmdline.run(fname,exists,argv[1]); //run until user quits 
-	
+		
+	}	
 	return 0;
 }
 
