@@ -3,48 +3,17 @@
 #include <string>
 #include <vector>
 #include <list>
+#include "cmdparser.h"
 #define TRUE 1
 #define FALSE 0
 using namespace std;
 
-class command{
-	public:
-	void parse(string & cmd)
-	{
-		
-	}
-
-
-};
-
-class LineEditor{
-	list<string> buffer;
-	string line; //to read from file to buffer
-	command cmd;
-	int current_line=0;
-	public:
-	LineEditor(fstream & fmanip,char *str)
-	{
-		int ct=0;
-	
-		while(getline(fmanip,line))
-		{
-			buffer.push_back(line);
-			ct++;
-		}
-		cout<<"\""<<str<<"\""<<" ["<<ct<<" lines"<<endl;
-	}
-	void run()
-	{
-		
-	}
-};
 
 
 int main(int argc, char * argv[])
 {
 	fstream filemanip;
-	bool fname,exists;
+	bool fname;
 	//fname: file name given or not
 	//exists: given file exists or not
 	if(argc!=2)
@@ -59,17 +28,12 @@ int main(int argc, char * argv[])
 		filemanip.open(argv[1],ios::in);
 		if(filemanip.good())
 		{
-			exists = TRUE;
-			while(getline(filemanip,line))
-			{
-				//read entire line from file and add it as a element of buffer.
-				LineEditor cmdline(filemanip,argv[1]);
-				cout<<""
-			}
+			//exists = TRUE;
+			LineEditor cmdline(filemanip,argv[1]);
 		}
 		else
 		{
-			exists = FALSE;
+			//exists = FALSE;
 			LineEditor cmdline;
 			cout<<"\""<<argv[1]<<"\""<<" [New File]"<<endl;
 		}
@@ -77,7 +41,7 @@ int main(int argc, char * argv[])
 	//till now, object of LineEditor is created. Now we enter command mode!
 	cout<<"Entering Command Mode."<<endl;
 	cout<<":";
-	cmdline.run(fname,exists) //run until user quits 
+	cmdline.run(fname,exists,argv[1]); //run until user quits 
 	
 	return 0;
 }

@@ -3,6 +3,7 @@
 #include <list>
 #include <string>
 #include <iostream>
+//using std::list<string>;
 class LED;
 class command{
 	bool valid;
@@ -23,22 +24,24 @@ class command{
 };
 
 class LED{
-	std::list<string> buffer;
+	std::list<std::string> buffer;
 	std::string line; //to read from file to buffer
-	std::list<string>::iterator bitr;
+	std::list<std::string>::iterator bitr;
 	command cmd;
 	bool mode;
 	int current_line,last_line;
 	public:
 	LED();
-	LED(fstream &,char);
-	void run(bool,bool,char *);
+	LED(std::fstream &,char *);
+	void run(bool,char *);
 	void remove();
 	void printbuff();
 	void printLineTab();
 	void change();
 	void moveUp();
 	void moveDown();
-	void writes(bool,bool);
+	void writes(bool,char *);
+	void move();
+	void pcl();
 };
 #endif

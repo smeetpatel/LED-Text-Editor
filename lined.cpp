@@ -7,6 +7,7 @@
 using std::cout;
 using std::endl;
 using std::string;
+using std::cin;
 
 
 LED::LED()
@@ -14,7 +15,7 @@ LED::LED()
 	current_line=last_line=0;
 }
 
-LED::LED(fstream & fmanip,char *str)
+LED::LED(std::fstream & fmanip,char *str)
 {
 	int ct=0;
 	while(getline(fmanip,line))
@@ -27,7 +28,7 @@ LED::LED(fstream & fmanip,char *str)
 }
 
 //following function runs continously until user decides to quit!!
-void LED::run(bool fname,bool exists,char *str)
+void LED::run(bool fname,char *str)
 {
 	string line;
 	int a=0;
@@ -39,7 +40,7 @@ void LED::run(bool fname,bool exists,char *str)
 		{
 			case 1:
 			{
-				cmd.commandParser(line,current_line,max_line);
+				cmd.commandParser(line,current_line,last_line);
 				if(cmd.valid==FALSE)
 				{
 					cout<<"ERROR"<<endl;
@@ -63,7 +64,7 @@ void LED::run(bool fname,bool exists,char *str)
 				else if(cmd.cmdsymbol=='d')
 					moveDown();
 				else if(cmd.cmdsymbol=='w')
-					writes(fname,exists,str);
+					writes(fname,str);
 				else if(cmd.cmdsymbol=='m')	
 					move();
 				else if(cmd.cmdsymbol=='z')
@@ -99,6 +100,7 @@ void LED::run(bool fname,bool exists,char *str)
 					getline(cin,line);
 				}
 				last_line=buffer.size();
+				cout<<":";
 				mode=1;
 				//above code would set current line and last line
 			}
@@ -106,11 +108,27 @@ void LED::run(bool fname,bool exists,char *str)
 		getline(cin,line);
 	}
 	//checking left
+	if(line=="q")
+	{
+		char ch;
+		cout<<"Save changes to "<<str<<"?(y/n):"<<endl;
+		cin>>ch;
+		if(ch==89 || ch==121)
+		{
+			writes(fname,str);
+		}
+		else
+		{
+		return;
+		}
+		
+	}
+	return;
 }
 
 void LED::remove()
 {
-	list<string>::iterator bitr2;
+	std::list<string>::iterator bitr2;
 	int i;
 	bitr=bitr2=buffer.begin();
 	for(i=0;i<((cmd.add1-'0')-1);i++)
@@ -134,6 +152,7 @@ void LED::remove()
 		current_line = ((cmd.add1-'0')-1);
 	if(last_line==0)
 		current_line=0;
+	cout<<":";
 	return;
 }
 
@@ -148,7 +167,8 @@ void LED::printbuff()
 		cout<<*bitr<<endl;
 		++bitr;
 	}
-	cl=(y-'0');
+	current_line=(cmd.add2-'0');
+	cout<<":";
 	return;
 }
 
@@ -165,7 +185,8 @@ void LED::printLineTab()
 		a++;
 		++bitr;
 	}
-	cl=(y-'0');
+	current_line=(cmd.add2-'0');
+	cout<<":";
 	return;
 }
 
@@ -197,7 +218,8 @@ void LED::change()
 		*bitr=line;
 		++bitr;
 	}
-	cl=(y-'0');
+	current_line=(cmd.add2-'0');
+	cout<<":";
 	return;
 }
 
@@ -209,6 +231,7 @@ void LED::moveUp()
 		cout<<"Not possible"<<endl;
 		return;
 	}
+	cout<<":";
 	return;
 }
 
@@ -220,22 +243,23 @@ void LED::moveDown()
 		cout<<"Not possible"<<endl;
 		return;
 	}
+	cout<<":";
 	return;
 }
 
-void LED::writes(bool fname,bool exists,char *str)
+void LED::writes(bool fname,char *str)
 {
 	string file_name;
-	ofstream filemanip
+	std::ofstream filemanip;
 	if(fname==FALSE)
 	{
-		cout<<"Enter file name: "
+		cout<<"Enter file name: "<<endl;
 		getline(cin,file_name);
 		filemanip.open(file_name.c_str());
 	}
 	else
 	{
-		filemanip.open(str,ios::out);
+		filemanip.open(str,std::ios::out);
 	}
 	bitr=buffer.begin();
 	if(filemanip.good())
@@ -248,5 +272,20 @@ void LED::writes(bool fname,bool exists,char *str)
 		}
 	}
 	filemanip.close();
+	cout<<":";
+	return;
+}
+
+void LED::move()
+{
+	current_line=(cmd.add1-'0');
+	cout<<":";
+	return;
+}
+
+void LED::pcl()
+{
+	cout<<current_line<<endl;
+	cout<<":";
 	return;
 }
