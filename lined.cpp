@@ -27,7 +27,7 @@ LED::LED(fstream & fmanip,char *str)
 }
 
 //following function runs continously until user decides to quit!!
-void LED::run()
+void LED::run(bool fname,bool exists,char *str)
 {
 	string line;
 	int a=0;
@@ -63,7 +63,7 @@ void LED::run()
 				else if(cmd.cmdsymbol=='d')
 					moveDown();
 				else if(cmd.cmdsymbol=='w')
-					writes();
+					writes(fname,exists,str);
 				else if(cmd.cmdsymbol=='m')	
 					move();
 				else if(cmd.cmdsymbol=='z')
@@ -169,4 +169,84 @@ void LED::printLineTab()
 	return;
 }
 
+void LED::change()
+{
+	string line1,line2;
+	int i;
+	bitr=buffer.begin();
+	for(i=0;i<((cmd.add1-'0')-1);i++)
+		++bitr;
+	for(i=(cmd.add1-'0');i<((cmd.add2-'0')+1);i++)
+	{
+		cout<<*bitr<<endl;
+		line=*bitr;
+		cout<<"Enter text to be changed:"<<endl;
+		getline(cin,line1);
+		cout<<"Enter text to be replaced with:"<<endl;
+		getline(cin,line2);
+		std::size_t found = line.find(line1);
+		if(found==std::string::npos) //error
+		{
+			cout<<"Strign not present"<<endl;
+			return;	
+		}
+		else	//error free
+		{
+			line.replace(line.find(line1),line1.length(),line2);
+		}
+		*bitr=line;
+		++bitr;
+	}
+	cl=(y-'0');
+	return;
+}
 
+void LED::moveUp()
+{
+	current_line=current_line-(cmd.add1-'0');
+	if(current_line<1)
+	{
+		cout<<"Not possible"<<endl;
+		return;
+	}
+	return;
+}
+
+void LED::moveDown()
+{
+	current_line=current_line+(cmd.add1-'0');
+	if(current_line<last_line)
+	{
+		cout<<"Not possible"<<endl;
+		return;
+	}
+	return;
+}
+
+void LED::writes(bool fname,bool exists,char *str)
+{
+	string file_name;
+	ofstream filemanip
+	if(fname==FALSE)
+	{
+		cout<<"Enter file name: "
+		getline(cin,file_name);
+		filemanip.open(file_name.c_str());
+	}
+	else
+	{
+		filemanip.open(str,ios::out);
+	}
+	bitr=buffer.begin();
+	if(filemanip.good())
+	{
+		while(bitr!=buffer.end())
+		{
+			filemanip<<*bitr;
+			filemanip<<endl;
+			++bitr;
+		}
+	}
+	filemanip.close();
+	return;
+}

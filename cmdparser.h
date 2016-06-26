@@ -32,9 +32,13 @@ class LED{
 	public:
 	LED();
 	LED(fstream &,char);
-	void run();
+	void run(bool,bool,char *);
 	void remove();
 	void printbuff();
 	void printLineTab();
+	void change();
+	void moveUp();
+	void moveDown();
+	void writes(bool,bool);
 };
 #endif

@@ -77,7 +77,7 @@ int main(int argc, char * argv[])
 	//till now, object of LineEditor is created. Now we enter command mode!
 	cout<<"Entering Command Mode."<<endl;
 	cout<<":";
-	cmdline.run() //run until user quits 
+	cmdline.run(fname,exists) //run until user quits 
 	
 	return 0;
 }
