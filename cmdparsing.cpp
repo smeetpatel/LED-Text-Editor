@@ -78,8 +78,7 @@ void command::commandParser(string cmd,int cl,int max)
 		{
 			//check possiblities of =
 			valid = TRUE;
-			cmdsymbol='z';
-			cout<<"Current Line: "<<cl<<endl;	
+			cmdsymbol='z';	
 		}
 		else
 		{
@@ -171,13 +170,14 @@ void command::theta(string pop,int cl,int max)
 		else
 		{
 			//code for x
-			std::istringstream con(s);
+			std::istringstream con(pop);
 			con>>x;
 			add1=x+'0';
 			add2='\0';
 			seprator='\0';
 			cmdsymbol='m';
-			if(1<=x && x<=max)
+			a=add1-'0';
+			if(1<=a && a<=max)
 				valid=TRUE;
 			else
 			{
@@ -206,7 +206,6 @@ void command::theta(string pop,int cl,int max)
 		if(isalpha(pop[size-1])) //code for x,z and x,yz
 		{
 			s=pop.substr(found,size);
-			cout<<s<<endl;
 			if(s.length()==2)
 			{
 				//code for x,z
@@ -225,16 +224,12 @@ void command::theta(string pop,int cl,int max)
 			else if(s.length()==3)
 			{
 				//code for x,.z and x,$z
-				cout<<"pop[found+1]:"<<pop[found+1]<<endl;
 				if(pop[found+1]==46)
 					add2=cl+'0';
 				else if(pop[found+1]==36)
 					add2=max+'0';
 				else if(isdigit(pop[found+1]))
-				{
 					add2=pop[found+1];
-					cout<<add2<<endl;
-				}
 				else
 				{
 					valid = FALSE;
@@ -243,7 +238,6 @@ void command::theta(string pop,int cl,int max)
 				cmdsymbol=pop[size-1];
 				a=add1-'0';
 				b=add2-'0';
-				cout<<"A: "<<a<<" B: "<<b<<endl;
 				if(1<=a && a<=b && b<=max)
 					valid = TRUE;
 				else
@@ -255,7 +249,6 @@ void command::theta(string pop,int cl,int max)
 			else
 			{
 				s=pop.substr(found+1,size-3);
-				cout<<s<<endl;
 				for(i=0;i<s.length();i++)
 				{
 					if(!isdigit(s[i]))
@@ -271,7 +264,6 @@ void command::theta(string pop,int cl,int max)
 				cmdsymbol=pop[size-1];
 				a=add1-'0';
 				b=add2-'0';
-				cout<<"A: "<<a<<" B: "<<b<<endl;
 				if(1<=a && a<=b && b<=max)
 					valid = TRUE;
 				else
@@ -399,7 +391,6 @@ void command::beta(string pop,int cl,int max)
 		{
 			//code for .,z and .,yz
 			s=pop.substr(found+1,size);
-			cout<<s<<" Length:"<<s.length()<<endl;
 			if(s.length()==1)	 //.,z
 			{
 				
@@ -407,7 +398,6 @@ void command::beta(string pop,int cl,int max)
 				cmdsymbol=pop[size-1];
 				a=add1-'0';
 				b=add2-'0';
-				cout<<"A: "<<a<<" B: "<<b<<endl;
 				if(1<=a && a<=b && b<=max)
 					valid = TRUE;
 				else
@@ -443,7 +433,6 @@ void command::beta(string pop,int cl,int max)
 			else
 			{
 				string str=pop.substr(found+1,size-3);
-				cout<<str<<" Length:"<<str.length()<<endl;
 				for(i=0;i<str.length();i++)
 				{
 					if(!isdigit(str[i]))
@@ -473,7 +462,6 @@ void command::beta(string pop,int cl,int max)
 		{
 			//code for .,. and .,d and .,$
 			s=pop.substr(found+1,size);
-			cout<<s<<" Length:"<<s.length()<<endl;
 			if(s.length()==1)
 			{
 				if(isdigit(pop[found+1]))
@@ -627,7 +615,6 @@ void command::alpha(string pop,int cl,int max)
 			else
 			{
 				s=pop.substr(found+1,size-3);
-				cout<<s<<endl;
 				for(i=0;i<s.length();i++)
 				{
 					if(!isdigit(s[i]))
@@ -797,7 +784,6 @@ void command::myu(string pop,int cl,int max)
 		return;
 	}
 	string s=pop.substr(1,size-2);
-	cout<<s<<endl;
 	for(i=0;i<s.length();i++)
 	{
 		if(!isdigit(s[i]))

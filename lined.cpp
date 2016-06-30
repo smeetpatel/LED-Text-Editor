@@ -296,7 +296,7 @@ void LED::move()
 
 void LED::pcl()
 {
-	cout<<current_line<<endl;
+	cout<<"Current Line: "<<current_line<<endl;
 	cout<<":";
 	return;
 }
