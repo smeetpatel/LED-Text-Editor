@@ -19,6 +19,8 @@ int main(int argc, char * argv[])
 		fname=FALSE;
 		LED cmdline;
 		cout<<"\"?\" [New File]"<<endl;
+		cout<<"Entering Command Mode."<<endl;
+		cout<<":";
 		cmdline.run(fname,NULL);
 	}
 	else

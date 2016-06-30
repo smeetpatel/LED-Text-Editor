@@ -3,14 +3,15 @@
 #include <list>
 #include <string>
 #include <iostream>
+#include <vector>
 
 class LED;
 class command{
 	bool valid;
 	char cmdsymbol,seprator;
 	char add1,add2;
-	std::list<char> parse;
-	std::list<char>::iterator pitr;
+	std::vector<char> parse;
+	std::vector<char>::iterator pitr;
 	public:
 	friend class LED;
 	command();

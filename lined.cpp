@@ -82,9 +82,13 @@ void LED::run(bool fname,const char *str)
 				{
 					bitr=buffer.begin();
 					if(current_line!=0) //would allow appending to empty buffer
-						current_line=(cmd.add1 - '0');
-					for(a=0;a<(cmd.add1-'0');a++)
+					{
+						current_line=(cmd.add1 - '0');	
+						for(a=0;a<(cmd.add1-'0');a++)
 						++bitr;
+					}	
+					else
+						current_line=0;
 				}
 				else   //cannot work on empty buffer
 				{
@@ -113,8 +117,9 @@ void LED::run(bool fname,const char *str)
 	if(line=="q")
 	{
 		char ch;
-		cout<<"Save changes to "<<str<<"?(y/n):"<<endl;
+		cout<<"Save changes?(y/n) "<<endl;
 		cin>>ch;
+		std::cin.ignore(1,'\n');
 		if(ch==89 || ch==121)
 		{
 			writes(fname,str);
@@ -210,7 +215,7 @@ void LED::change()
 		std::size_t found = line.find(line1);
 		if(found==std::string::npos) //error
 		{
-			cout<<"Strign not present"<<endl;
+			cout<<"String not present"<<endl;
 			return;	
 		}
 		else	//error free
