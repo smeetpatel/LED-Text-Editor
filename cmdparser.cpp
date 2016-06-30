@@ -90,6 +90,33 @@ class command{
 		else
 		{
 			//check possiblities of command
+			int a=0;
+			int size=parse.size();
+			if(size==1)
+			{
+				cmdsymbol = *pitr;
+				if(cmdsymbol=='p')
+				{
+					add1=cl+'0';
+					add2=add1;
+					a=add1-'0';
+					if(1<=a && a<=max)
+						valid = TRUE;
+					else
+					{
+						valid = FALSE;
+						cout<<"CMD OoR ERROR"<<endl;
+						return;
+					}
+				}
+			}
+			else
+			{
+				valid = FALSE;
+				cout<<"Size Error"<<endl;
+				return;
+			}
+			
 		}
 	
 		cout<<"Done"<<endl;

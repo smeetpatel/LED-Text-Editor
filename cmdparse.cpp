@@ -48,12 +48,13 @@ void command::commandParser(string cmd,int cl,int max)
 		return;
 	}
 	//list with all required element is formed.
-	if(parse.size()>4) //not known command
+	/*if(parse.size()>4) //not known command
 	{
 		valid = FALSE;
 		cout<<"Size Error"<<endl;
+		emptylist();
 		return;
-	}
+	}*/
 	i=0;
 	pitr=parse.begin();
 	if(isdigit(*pitr))
@@ -89,6 +90,7 @@ void command::commandParser(string cmd,int cl,int max)
 		{
 			valid = FALSE;
 			cout<<"Unexpected PUNCT ERROR"<<endl;
+			emptylist();
 			return;
 		}
 	}
@@ -100,25 +102,30 @@ void command::commandParser(string cmd,int cl,int max)
 		if(size==1)
 		{
 			cmdsymbol = *pitr;
+			
 			if(cmdsymbol=='p')
 			{
 				add1=cl+'0';
 				add2=add1;
-				a=add1-'0';
+				a=cl;
 				if(1<=a && a<=max)
 					valid = TRUE;
 				else
 				{
 					valid = FALSE;
 					cout<<"CMD OoR ERROR"<<endl;
+					emptylist();
 					return;
 				}
 			}
+			else
+				valid=TRUE;
 		}
 		else
 		{
 			valid = FALSE;
 			cout<<"Size Error"<<endl;
+			emptylist();
 			return;
 		}
 	}
